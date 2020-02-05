@@ -1,3 +1,6 @@
 /backupsTest/
 /backupsTests/*
 backupsTests
+/remoteDir/
+/remoteDir/*
+remoteDir
