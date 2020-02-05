@@ -5,6 +5,7 @@
 
 # Put here your db name.
 dbname=""
+user=""
 # Put here your path to backups depot.
 backupDir=""
 date=$(date +"%Y%m%d%H%M%S")
@@ -34,7 +35,7 @@ restore(){
     echo "$backupDir/$backupName"
     if [ -f "$backupDir/$backupName" ]; then
         read -s -p "Enter root password: " pswd 
-        echo "$pswd"|sudo -S -u postgres pg_restore --verbose --clean --no-acl --no-owner -h localhost -U autoevals -d $dbname "$backupDir/$backupName"
+        echo "$pswd"|sudo -S -u postgres pg_restore --verbose --clean --no-acl --no-owner -h localhost -U $user -d $dbname "$backupDir/$backupName"
     else
         echo "backup file not exists!"
     fi
