@@ -19,7 +19,7 @@ backupDir_exists(){
 backup(){
     backupDir_exists
     read -s -p "Enter root password: " pswd
-    echo "$pswd"|sudo -S -u postgres pg_dump -Fc $dbname > "$backupDir/backup$date.dump"
+    echo "$pswd"|sudo -S -u postgres pg_dump -Fc $dbname > "$backupDir/$dbname$date.dump"
     if [ $? -eq 0 ]; then
         echo "Backup OK"
     else
