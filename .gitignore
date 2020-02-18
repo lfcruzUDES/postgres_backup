@@ -4,3 +4,4 @@ backupsTests
 /remoteDir/
 /remoteDir/*
 remoteDir
+test.sh

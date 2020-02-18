@@ -4,10 +4,10 @@
 # Emails: lfcruz@udes.edu.mx | quattrococodrilo@gmail.com
 
 # Put here your db name.
-dbname=""
-user=""
+dbname=$DBNAME
+user=$USERDB
 # Put here your path to backups depot.
-backupDir=""
+backupDir=$BACKUPDIR
 date=$(date +"%Y%m%d%H%M%S")
 
 backupDir_exists(){
@@ -18,7 +18,7 @@ backupDir_exists(){
 
 backup(){
     backupDir_exists
-    read -s -p "Enter root password: " pswd 
+    read -s -p "Enter root password: " pswd
     echo "$pswd"|sudo -S -u postgres pg_dump -Fc $dbname > "$backupDir/backup$date.dump"
     if [ $? -eq 0 ]; then
         echo "Backup OK"
@@ -34,7 +34,7 @@ restore(){
     read -p "Backup name: " backupName
     echo "$backupDir/$backupName"
     if [ -f "$backupDir/$backupName" ]; then
-        read -s -p "Enter root password: " pswd 
+        read -s -p "Enter root password: " pswd
         echo "$pswd"|sudo -S -u postgres pg_restore --verbose --clean --no-acl --no-owner -h localhost -U $user -d $dbname "$backupDir/$backupName"
     else
         echo "backup file not exists!"
@@ -46,7 +46,7 @@ if [ $# -eq 0 ]; then
     echo "---------------------"
     echo "-bak for create a backup"
     echo "-rest for restore a backup"
-    exit 1 
+    exit 1
 fi
 
 if [ $1 = '-bak' ]; then
@@ -56,4 +56,3 @@ elif [ $1 = '-rest' ]; then
 else
     echo "Option not valid."
 fi
-
